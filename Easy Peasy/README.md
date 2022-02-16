@@ -95,7 +95,7 @@ Using Cyberchef, we determine that this is likely a SHA-256 hash. We'll brutefor
 john --wordlist=easypeasy.txt --format=gost hash.txt
   
 The end result provides us with a password!  
-With the password, wi then look through the directory to find a jpg file. We'll crack it using steghide. Upon Cracking, we find a secrettext.txt file. lets open that. The file contains a username and a binary encoded password. Let's decode it! 
+With the password, we then look through the directory to find a .jpg file. We'll crack it using steghide. Upon Cracking, we find a secrettext.txt file. lets open that. The file contains a username and a binary encoded password. Let's decode it! 
 Now with the username and password in hand, lets login with ssh:    
 ssh -p 6498 boring@10.10.153.96    
 Now inside the box, we find the user.txt file in the home directory. Something seems wrong with it though...  

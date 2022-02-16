@@ -1,5 +1,7 @@
 # Easy Peasy Writeup
 
+Challenge available here: https://tryhackme.com/room/easypeasyctf
+
 ## TASK 1 [Enumeration with Nmap]
 We'll start our enumeration process by running an nmap scan. However, I will actually be using rustscan, as it has a few extra performance bells and whistles that I prefer. So, we'll run this command:  
 rustscan -a 10.10.153.96 -- -sC -sV -oA 10.10.153.96 -v -A  
